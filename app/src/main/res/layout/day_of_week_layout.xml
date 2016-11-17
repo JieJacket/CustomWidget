@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="#cccccc"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:background="@drawable/day_view_content_background"
+        android:id="@+id/tv_day"
+        android:text="1"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_month"
+        android:layout_marginTop="8dp"
+        android:text="一月"
+        android:textSize="14sp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
