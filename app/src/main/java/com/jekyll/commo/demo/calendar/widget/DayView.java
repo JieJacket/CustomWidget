@@ -50,7 +50,7 @@ public class DayView extends LinearLayout implements View.OnClickListener {
 //        dayText.setText("1");
 //        monthText.setText(MONTHS[8]);
         resetViewStatus(isSelected);
-        setOnClickListener(this);
+//        setOnClickListener(this);
     }
 
     private void addDayView(Context context) {
