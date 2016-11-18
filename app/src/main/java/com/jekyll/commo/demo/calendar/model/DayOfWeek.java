@@ -3,31 +3,22 @@ package com.jekyll.commo.demo.calendar.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
  * Created by jie on 2016/11/17.
  */
 
-public class DayOfWeek implements Parcelable {
-    private String date;
-    private Date currentDate;
+public class DayOfWeek implements Parcelable,Comparable<DayOfWeek> {
+    private Date date;
     private boolean isSelected;
-    private boolean isToDay;
 
-    public Date getCurrentDate() {
-        return currentDate;
-    }
-
-    public void setCurrentDate(Date currentDate) {
-        this.currentDate = currentDate;
-    }
-
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -39,14 +30,6 @@ public class DayOfWeek implements Parcelable {
         isSelected = selected;
     }
 
-    public boolean isToDay() {
-        return isToDay;
-    }
-
-    public void setToDay(boolean toDay) {
-        isToDay = toDay;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -54,24 +37,20 @@ public class DayOfWeek implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.date);
-        dest.writeLong(this.currentDate != null ? this.currentDate.getTime() : -1);
+        dest.writeLong(this.date != null ? this.date.getTime() : -1);
         dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isToDay ? (byte) 1 : (byte) 0);
     }
 
     public DayOfWeek() {
     }
 
     protected DayOfWeek(Parcel in) {
-        this.date = in.readString();
-        long tmpCurrentDate = in.readLong();
-        this.currentDate = tmpCurrentDate == -1 ? null : new Date(tmpCurrentDate);
+        long tmpDate = in.readLong();
+        this.date = tmpDate == -1 ? null : new Date(tmpDate);
         this.isSelected = in.readByte() != 0;
-        this.isToDay = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<DayOfWeek> CREATOR = new Parcelable.Creator<DayOfWeek>() {
+    public static final Creator<DayOfWeek> CREATOR = new Creator<DayOfWeek>() {
         @Override
         public DayOfWeek createFromParcel(Parcel source) {
             return new DayOfWeek(source);
@@ -86,10 +65,14 @@ public class DayOfWeek implements Parcelable {
     @Override
     public String toString() {
         return "DayOfWeek{" +
-                "date='" + date + '\'' +
-                ", currentDate=" + currentDate +
+                "date=" + date +
                 ", isSelected=" + isSelected +
-                ", isToDay=" + isToDay +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(DayOfWeek o) {
+        return o.getDate().getMonth();
     }
 }

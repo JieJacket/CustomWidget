@@ -8,7 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.jekyll.commo.demo.calendar.listener.OnDateCheckedListener;
+import com.jekyll.commo.demo.calendar.model.DayOfWeek;
 import com.jekyll.commo.demo.calendar.model.WeekModel;
 import com.jekyll.commo.demo.calendar.util.CalendarUtils;
 import com.jekyll.commo.demo.calendar.widget.CustomCalendar;
@@ -17,8 +20,9 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnDateCheckedListener {
 
+    private static final String TAG = "MainActivity";
     private CustomCalendar customCalendar;
     private List<WeekModel> models;
 
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         customCalendar.setWeekModels(getSupportFragmentManager(), models);
 
         customCalendar.setCurrentWeek(20);
+
+        customCalendar.setSelectedDates(Calendar.getInstance().getTime());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,5 +75,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onDateClicked(View view, DayOfWeek day) {
+        Toast.makeText(getApplicationContext(),day.toString(),Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,14 +3,11 @@ package com.jekyll.commo.demo.calendar.util;
 import com.jekyll.commo.demo.calendar.model.DayOfWeek;
 import com.jekyll.commo.demo.calendar.model.WeekModel;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by jie on 2016/11/17.
@@ -54,7 +51,7 @@ public class CalendarUtils {
             List<DayOfWeek> afterWeek = new LinkedList<>();
             for (DayOfWeek day : current.getWeek()) {
                 Calendar c = Calendar.getInstance();
-                c.setTime(day.getCurrentDate());
+                c.setTime(day.getDate());
                 c.add(Calendar.DAY_OF_WEEK, 7);
                 afterWeek.add(dateToDayModel(c.getTime()));
             }
@@ -77,7 +74,7 @@ public class CalendarUtils {
             List<DayOfWeek> beforeWeek = new LinkedList<>();
             for (DayOfWeek day : current.getWeek()) {
                 Calendar c = Calendar.getInstance();
-                c.setTime(day.getCurrentDate());
+                c.setTime(day.getDate());
                 c.add(Calendar.DAY_OF_WEEK, -7);
                 beforeWeek.add(dateToDayModel(c.getTime()));
             }
@@ -114,10 +111,8 @@ public class CalendarUtils {
         if (date == null) {
             return null;
         }
-        DateFormat format = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
         DayOfWeek dayOfWeek = new DayOfWeek();
-        dayOfWeek.setCurrentDate(date);
-        dayOfWeek.setDate(format.format(date));
+        dayOfWeek.setDate(date);
         return dayOfWeek;
     }
 

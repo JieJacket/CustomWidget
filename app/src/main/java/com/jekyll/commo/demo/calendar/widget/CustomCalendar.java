@@ -12,9 +12,14 @@ import android.widget.TextView;
 
 import com.jekyll.commo.demo.R;
 import com.jekyll.commo.demo.calendar.adapter.CalendarPagerAdapter;
+import com.jekyll.commo.demo.calendar.model.DayOfWeek;
 import com.jekyll.commo.demo.calendar.model.WeekModel;
 import com.jekyll.commo.demo.calendar.util.ViewUtils;
 
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,11 +29,14 @@ import java.util.List;
 public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChangeListener {
 
     private static final String[] WEEK = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
+    private static final String[] MONTHS = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
+
     private LinearLayout topContainer;//顶部存放星期的容器
     private ViewPager calendarContainer;
     private CalendarPagerAdapter pagerAdapter;
     private List<WeekModel> weekModels;
 
+    private TextView tvDate;
 
     public CustomCalendar(Context context) {
         this(context, null);
@@ -49,7 +57,17 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
         addCalendar(context);
     }
 
+
     private void addTopLabel(Context context) {
+        tvDate = new TextView(context);
+        LayoutParams dateParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtils.dp2px(context, 36));
+        tvDate.setLayoutParams(dateParams);
+        tvDate.setTextColor(Color.parseColor("#cccccc"));
+        tvDate.setGravity(Gravity.CENTER);
+        tvDate.setGravity(Gravity.CENTER);
+        addView(tvDate);
+
+
         topContainer = new LinearLayout(context);
         topContainer.setOrientation(HORIZONTAL);
         topContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -59,7 +77,7 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
             lp.weight = 1;
             tv.setLayoutParams(lp);
             tv.setText(day);
-            tv.setTextColor(Color.parseColor("#666666"));
+            tv.setTextColor(Color.parseColor("#cccccc"));
             tv.setGravity(Gravity.CENTER);
             topContainer.addView(tv);
         }
@@ -70,7 +88,7 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
         calendarContainer = new ViewPager(context);
         calendarContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         calendarContainer.addOnPageChangeListener(this);
-        calendarContainer.setId(R.id.caleandar_vp);
+        calendarContainer.setId(R.id.calendar_vp);
         addView(calendarContainer);
     }
 
@@ -81,11 +99,16 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
         pagerAdapter.notifyDataSetChanged();
     }
 
-    public void setCurrentWeek(int pager){
-        if (calendarContainer != null){
+    public void setCurrentWeek(int pager) {
+        if (calendarContainer != null) {
             calendarContainer.setCurrentItem(pager);
         }
     }
+
+    public void setSelectedDates(Date... dates) {
+
+    }
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -94,11 +117,36 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
 
     @Override
     public void onPageSelected(int position) {
+        checkCurMonth(weekModels.get(position));
+    }
+
+    private void checkCurMonth(WeekModel model) {
+        List<DayOfWeek> week = model.getWeek();
+        DayOfWeek dofWeek = Collections.max(week);
+        tvDate.setText(MONTHS[dofWeek.getDate().getMonth()]);
 
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    /**
+     * 获取选中的日期
+     * @return
+     */
+    public List<DayOfWeek> getSelections() {
+        List<DayOfWeek> select = new LinkedList<>();
+        if (weekModels != null) {
+            for (WeekModel week : weekModels) {
+                for (DayOfWeek day : week.getWeek()) {
+                    if (day.isSelected()) {
+                        select.add(day);
+                    }
+                }
+            }
+        }
+        return select;
     }
 }

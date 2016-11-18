@@ -16,6 +16,7 @@ import java.util.List;
 
 public class CalendarPagerAdapter extends FragmentPagerAdapter {
     private List<WeekModel> weekModels;
+    public WeekFragment currentFragment;
 
     public CalendarPagerAdapter(FragmentManager fm, List<WeekModel> weekModels) {
         super(fm);
@@ -24,7 +25,7 @@ public class CalendarPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return WeekFragment.newInstance(weekModels.get(position));
+        return currentFragment = WeekFragment.newInstance(weekModels.get(position));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.jekyll.commo.demo.calendar.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.widget.TextViewCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -70,6 +71,7 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         LayoutParams monthParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         monthParams.gravity = Gravity.CENTER_HORIZONTAL;
         monthText.setLayoutParams(monthParams);
+        monthText.setTextColor(Color.parseColor("#cccccc"));
         addView(monthText);
     }
 
@@ -80,8 +82,8 @@ public class DayView extends LinearLayout implements View.OnClickListener {
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
         if (dayOfWeek != null) {
-            dayText.setText(getDayLabel(dayOfWeek.getCurrentDate()));
-            monthText.setText(getMonthLabel(dayOfWeek.getCurrentDate()));
+            dayText.setText(getDayLabel(dayOfWeek.getDate()));
+            monthText.setText(getMonthLabel(dayOfWeek.getDate()));
             setSelected(dayOfWeek.isSelected());
         } else {
             dayText.setText(null);
