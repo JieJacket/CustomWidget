@@ -15,4 +15,11 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="150dp" />
+
+    <Button
+        android:id="@+id/btn_test"
+        android:text="get selection"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

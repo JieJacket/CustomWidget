@@ -53,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements OnDateCheckedList
                         .setAction("Action", null).show();
             }
         });
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), customCalendar.getSelections().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -80,6 +86,6 @@ public class MainActivity extends AppCompatActivity implements OnDateCheckedList
 
     @Override
     public void onDateClicked(View view, DayOfWeek day) {
-        Toast.makeText(getApplicationContext(),day.toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), day.toString(), Toast.LENGTH_SHORT).show();
     }
 }
