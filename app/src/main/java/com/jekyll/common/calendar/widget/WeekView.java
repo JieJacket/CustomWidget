@@ -1,11 +1,11 @@
-package com.jekyll.commo.demo.calendar.widget;
+package com.jekyll.common.calendar.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.jekyll.commo.demo.calendar.model.WeekModel;
+import com.jekyll.common.calendar.model.WeekModel;
 
 import java.util.LinkedList;
 import java.util.List;

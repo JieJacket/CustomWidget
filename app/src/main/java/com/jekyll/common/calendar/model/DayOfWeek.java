@@ -1,4 +1,4 @@
-package com.jekyll.commo.demo.calendar.model;
+package com.jekyll.common.calendar.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

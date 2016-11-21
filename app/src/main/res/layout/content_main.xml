@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.jekyll.commo.demo.MainActivity"
+    tools:context="com.jekyll.common.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.jekyll.commo.demo.calendar.widget.CustomCalendar
+    <com.jekyll.common.calendar.widget.CustomCalendar
         android:id="@+id/cc_test"
         android:background="#123456"
         android:gravity="center"

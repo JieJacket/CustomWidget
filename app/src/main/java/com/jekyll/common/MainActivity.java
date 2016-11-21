@@ -1,4 +1,4 @@
-package com.jekyll.commo.demo;
+package com.jekyll.common;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,11 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.jekyll.commo.demo.calendar.listener.OnDateCheckedListener;
-import com.jekyll.commo.demo.calendar.model.DayOfWeek;
-import com.jekyll.commo.demo.calendar.model.WeekModel;
-import com.jekyll.commo.demo.calendar.util.CalendarUtils;
-import com.jekyll.commo.demo.calendar.widget.CustomCalendar;
+import com.jekyll.common.calendar.listener.OnDateCheckedListener;
+import com.jekyll.common.calendar.model.DayOfWeek;
+import com.jekyll.common.calendar.model.WeekModel;
+import com.jekyll.common.calendar.util.CalendarUtils;
+import com.jekyll.common.calendar.widget.CustomCalendar;
 
 import java.text.DateFormat;
 import java.text.ParseException;

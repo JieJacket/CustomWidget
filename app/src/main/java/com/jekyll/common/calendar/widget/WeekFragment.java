@@ -1,4 +1,4 @@
-package com.jekyll.commo.demo.calendar.widget;
+package com.jekyll.common.calendar.widget;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jekyll.commo.demo.R;
-import com.jekyll.commo.demo.calendar.adapter.WeekDaysAdapter;
-import com.jekyll.commo.demo.calendar.listener.OnDateCheckedListener;
-import com.jekyll.commo.demo.calendar.listener.OnDateClickListener;
-import com.jekyll.commo.demo.calendar.model.DayOfWeek;
-import com.jekyll.commo.demo.calendar.model.WeekModel;
+import com.jekyll.common.R;
+import com.jekyll.common.calendar.adapter.WeekDaysAdapter;
+import com.jekyll.common.calendar.listener.OnDateCheckedListener;
+import com.jekyll.common.calendar.listener.OnDateClickListener;
+import com.jekyll.common.calendar.model.DayOfWeek;
+import com.jekyll.common.calendar.model.WeekModel;
 
 import java.util.Arrays;
 import java.util.Date;

@@ -1,12 +1,12 @@
-package com.jekyll.commo.demo;
+package com.jekyll.common;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jekyll.commo.demo.calendar.model.WeekModel;
-import com.jekyll.commo.demo.calendar.util.CalendarUtils;
-import com.jekyll.commo.demo.calendar.widget.WeekFragment;
+import com.jekyll.common.calendar.model.WeekModel;
+import com.jekyll.common.calendar.util.CalendarUtils;
+import com.jekyll.common.calendar.widget.WeekFragment;
 
 import java.util.Calendar;
 

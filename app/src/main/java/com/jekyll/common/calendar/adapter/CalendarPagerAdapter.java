@@ -1,12 +1,12 @@
-package com.jekyll.commo.demo.calendar.adapter;
+package com.jekyll.common.calendar.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.jekyll.commo.demo.calendar.model.WeekModel;
-import com.jekyll.commo.demo.calendar.widget.WeekFragment;
+import com.jekyll.common.calendar.model.WeekModel;
+import com.jekyll.common.calendar.widget.WeekFragment;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.jekyll.commo.demo.calendar.adapter;
+package com.jekyll.common.calendar.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,23 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jekyll.commo.demo.R;
-import com.jekyll.commo.demo.calendar.listener.OnDateClickListener;
-import com.jekyll.commo.demo.calendar.model.DayOfWeek;
-import com.jekyll.commo.demo.calendar.widget.DayView;
+import com.jekyll.common.R;
+import com.jekyll.common.calendar.listener.OnDateClickListener;
+import com.jekyll.common.calendar.model.DayOfWeek;
+import com.jekyll.common.calendar.widget.DayView;
 
 import java.util.List;
 
 /**
  * Created by jie on 2016/11/17.
  */
-public class WeekDaysAdapter extends RecyclerView.Adapter<WeekDaysAdapter.ViewHolder> {
+
+public class WeekListAdapter extends RecyclerView.Adapter<WeekListAdapter.ViewHolder> {
     private Context context;
     private List<DayOfWeek> days;
     private LayoutInflater inflater;
     private OnDateClickListener onDateClickListener;
 
-    public WeekDaysAdapter(Context context, List<DayOfWeek> days) {
+    public WeekListAdapter(Context context, List<DayOfWeek> days) {
         this.context = context;
         this.days = days;
         this.inflater = LayoutInflater.from(context);
@@ -55,7 +56,7 @@ public class WeekDaysAdapter extends RecyclerView.Adapter<WeekDaysAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
             dayView = (DayView) itemView.findViewById(R.id.dv_item);
-            itemView.setOnClickListener(this);
+            dayView.setOnClickListener(this);
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.jekyll.commo.demo.calendar.widget;
+package com.jekyll.common.calendar.widget;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jekyll.commo.demo.R;
-import com.jekyll.commo.demo.calendar.model.DayOfWeek;
-import com.jekyll.commo.demo.calendar.util.ViewUtils;
+import com.jekyll.common.R;
+import com.jekyll.common.calendar.model.DayOfWeek;
+import com.jekyll.common.calendar.util.ViewUtils;
 
 import java.util.Calendar;
 import java.util.Date;

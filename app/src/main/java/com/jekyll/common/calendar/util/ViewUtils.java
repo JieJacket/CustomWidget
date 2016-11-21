@@ -1,4 +1,4 @@
-package com.jekyll.commo.demo.calendar.util;
+package com.jekyll.common.calendar.util;
 
 import android.content.Context;
 

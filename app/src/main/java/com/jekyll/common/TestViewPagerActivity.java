@@ -1,14 +1,13 @@
-package com.jekyll.commo.demo;
+package com.jekyll.common;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ViewGroup;
 
-import com.jekyll.commo.demo.calendar.adapter.CalendarPagerAdapter;
-import com.jekyll.commo.demo.calendar.model.WeekModel;
-import com.jekyll.commo.demo.calendar.util.CalendarUtils;
+import com.jekyll.common.calendar.adapter.CalendarPagerAdapter;
+import com.jekyll.common.calendar.model.WeekModel;
+import com.jekyll.common.calendar.util.CalendarUtils;
 
 import java.util.Calendar;
 import java.util.LinkedList;

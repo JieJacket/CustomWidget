@@ -1,4 +1,4 @@
-package com.jekyll.commo.demo.calendar.listener;
+package com.jekyll.common.calendar.listener;
 
 import android.view.View;
 
@@ -7,5 +7,5 @@ import android.view.View;
  */
 
 public interface OnDateClickListener {
-    void onDateClicked(View view,int position);
+    void onDateClicked(View view, int position);
 }
