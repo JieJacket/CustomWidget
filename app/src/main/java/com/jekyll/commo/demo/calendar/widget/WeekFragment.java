@@ -70,6 +70,7 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
             list = weekModel.getWeek();
             adapter = new WeekDaysAdapter(getActivity(), list);
             recyclerView.setAdapter(adapter);
+            recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             adapter.setOnDateClickListener(this);
             initSelectedDates();
 

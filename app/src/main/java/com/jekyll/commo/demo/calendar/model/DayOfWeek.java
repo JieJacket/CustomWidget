@@ -3,14 +3,16 @@ package com.jekyll.commo.demo.calendar.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Comparator;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by jie on 2016/11/17.
  */
 
-public class DayOfWeek implements Parcelable,Comparable<DayOfWeek> {
+public class DayOfWeek implements Parcelable, Comparable<DayOfWeek> {
     private Date date;
     private boolean isSelected;
 
@@ -74,5 +76,21 @@ public class DayOfWeek implements Parcelable,Comparable<DayOfWeek> {
     @Override
     public int compareTo(DayOfWeek o) {
         return o.getDate().getMonth();
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DayOfWeek) {
+            DayOfWeek dayOfWeek = (DayOfWeek) obj;
+            Date date = dayOfWeek.getDate();
+            if (date == null || this.date == null){
+                return false;
+            }
+            DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+            return format.format(this.date).equals(format.format(date));
+        }
+
+        return super.equals(obj);
     }
 }

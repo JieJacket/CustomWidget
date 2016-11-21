@@ -30,7 +30,6 @@ public class CalendarUtils {
         List<DayOfWeek> dayOfWeeks = new LinkedList<>();
         currentDate.add(Calendar.DAY_OF_WEEK, -dayOfWeek + 1);
         for (int i = 0; i < 7; i++) {
-            DayOfWeek day = new DayOfWeek();
             currentDate.add(Calendar.DAY_OF_WEEK, 1);
             dayOfWeeks.add(dateToDayModel(currentDate.getTime()));
         }
@@ -85,6 +84,13 @@ public class CalendarUtils {
         return null;
     }
 
+    /**
+     * 获取相对于当前一周后指定数量的时间集合
+     *
+     * @param calendar
+     * @param count
+     * @return
+     */
     public List<WeekModel> getTheAfterWeeks(Calendar calendar, int count) {
         List<WeekModel> weekModels = new LinkedList<>();
         for (int i = 0; i < count; i++) {
@@ -95,6 +101,13 @@ public class CalendarUtils {
         return weekModels;
     }
 
+    /**
+     * 获取相对于当前一周前指定数量的时间集合
+     *
+     * @param calendar
+     * @param count
+     * @return
+     */
     public List<WeekModel> getTheDateBeforeWeeks(Calendar calendar, int count) {
         List<WeekModel> weekModels = new LinkedList<>();
         for (int i = 0; i < count; i++) {
@@ -102,11 +115,18 @@ public class CalendarUtils {
             WeekModel theDateAfterWeek = calculatorDate(calendar);
             weekModels.add(theDateAfterWeek);
         }
-        Collections.reverse(weekModels);
+        if (!weekModels.isEmpty()) {
+            Collections.reverse(weekModels);
+        }
         return weekModels;
     }
 
-
+    /**
+     * 普通日期转为DayOfWeek对象
+     *
+     * @param date
+     * @return
+     */
     public DayOfWeek dateToDayModel(Date date) {
         if (date == null) {
             return null;

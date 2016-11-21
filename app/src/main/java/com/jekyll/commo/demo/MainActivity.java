@@ -16,9 +16,14 @@ import com.jekyll.commo.demo.calendar.model.WeekModel;
 import com.jekyll.commo.demo.calendar.util.CalendarUtils;
 import com.jekyll.commo.demo.calendar.widget.CustomCalendar;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements OnDateCheckedListener {
 
@@ -33,17 +38,41 @@ public class MainActivity extends AppCompatActivity implements OnDateCheckedList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         customCalendar = (CustomCalendar) findViewById(R.id.cc_test);
+
         models = new LinkedList<>();
         CalendarUtils utils = new CalendarUtils();
-        models.addAll(utils.getTheDateBeforeWeeks(Calendar.getInstance(), 20));
-        models.add(utils.calculatorDate(Calendar.getInstance()));
-        models.addAll(utils.getTheAfterWeeks(Calendar.getInstance(), 20));
+
+        Calendar start = Calendar.getInstance();
+        DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        try {
+            Date startDate = format.parse("20161020");
+            start.setTime(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar end = Calendar.getInstance();
+
+        models = customCalendar.setCalendarLimit(start, end);//设置日期的开始结束位置
 
         customCalendar.setWeekModels(getSupportFragmentManager(), models);
 
-        customCalendar.setCurrentWeek(20);
+        customCalendar.setCurrentWeek(models.size() - 1);//设置日期到最后一页
 
-        customCalendar.setSelectedDates(Calendar.getInstance().getTime());
+        try {
+            customCalendar.setSelectedDates(format.parse("20161020"), format.parse("20161021"), format.parse("20161121"));//设置选中的时间集合
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+//        models.addAll(utils.getTheDateBeforeWeeks(Calendar.getInstance(), 20));
+//        models.add(utils.calculatorDate(Calendar.getInstance()));
+//        models.addAll(utils.getTheAfterWeeks(Calendar.getInstance(), 20));
+//
+//        customCalendar.setWeekModels(getSupportFragmentManager(), models);
+//
+//        customCalendar.setCurrentWeek(20);
+//
+//        customCalendar.setSelectedDates(Calendar.getInstance().getTime());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

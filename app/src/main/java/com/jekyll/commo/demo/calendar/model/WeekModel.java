@@ -3,6 +3,8 @@ package com.jekyll.commo.demo.calendar.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,4 +51,34 @@ public class WeekModel implements Parcelable {
             return new WeekModel[size];
         }
     };
+
+    /**
+     * 判断是否包含本周是否包含有此日期
+     * @param dayOfWeek
+     * @return
+     */
+    public boolean contain(DayOfWeek dayOfWeek) {
+        if (this.getWeek() == null || dayOfWeek == null) {
+            return false;
+        }
+        List<DayOfWeek> weeks = this.getWeek();
+        for (DayOfWeek day : weeks) {
+            if (dayOfWeek.equals(day)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contain(Calendar calendar){
+        DayOfWeek day = new DayOfWeek();
+        day.setDate(calendar.getTime());
+        return contain(day);
+    }
+
+    public boolean contain(Date date){
+        DayOfWeek day = new DayOfWeek();
+        day.setDate(date);
+        return contain(day);
+    }
 }

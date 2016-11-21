@@ -17,7 +17,7 @@ public class CalendarUtilsTest {
     public void calculatorDate() throws Exception {
         CalendarUtils utils = new CalendarUtils();
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_WEEK,7);
+        calendar.add(Calendar.DAY_OF_WEEK, 7);
         WeekModel dayOfWeeks = utils.calculatorDate(calendar);
         for (DayOfWeek day : dayOfWeeks.getWeek()) {
             System.out.println(day);
@@ -46,6 +46,7 @@ public class CalendarUtilsTest {
             }
         }
     }
+
     @Test
     public void getTheDateBeforeWeeks() throws Exception {
         CalendarUtils utils = new CalendarUtils();
@@ -72,6 +73,10 @@ public class CalendarUtilsTest {
     public void dateToDayModel() throws Exception {
         CalendarUtils utils = new CalendarUtils();
         System.out.println(utils.dateToDayModel(new Date()));
+    }
+
+    @Test
+    public void weekContainTheDay() throws Exception {
     }
 
 }
