@@ -9,7 +9,7 @@
     tools:context="com.jekyll.common.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.jekyll.common.calendar.widget.CustomCalendar
+    <com.jekyll.wu.widget.calendar.widget.CustomCalendar
         android:id="@+id/cc_test"
         android:background="#123456"
         android:gravity="center"

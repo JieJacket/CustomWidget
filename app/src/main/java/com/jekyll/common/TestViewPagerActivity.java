@@ -5,9 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jekyll.common.calendar.adapter.CalendarPagerAdapter;
-import com.jekyll.common.calendar.model.WeekModel;
-import com.jekyll.common.calendar.util.CalendarUtils;
+
+import com.jekyll.wu.widget.calendar.adapter.CalendarPagerAdapter;
+import com.jekyll.wu.widget.calendar.model.WeekModel;
+import com.jekyll.wu.widget.calendar.util.CalendarUtils;
 
 import java.util.Calendar;
 import java.util.LinkedList;

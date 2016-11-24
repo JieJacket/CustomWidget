@@ -1,7 +1,9 @@
 package com.jekyll.commo.demo.calendar.util;
 
-import com.jekyll.commo.demo.calendar.model.DayOfWeek;
-import com.jekyll.commo.demo.calendar.model.WeekModel;
+
+import com.jekyll.common.calendar.model.DayOfWeek;
+import com.jekyll.common.calendar.model.WeekModel;
+import com.jekyll.common.calendar.util.CalendarUtils;
 
 import org.junit.Test;
 

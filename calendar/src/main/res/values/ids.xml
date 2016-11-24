@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="calendar_vp" type="id" />
+    <item name="left_arrow" type="id" />
+    <item name="right_arrow" type="id" />
+</resources>
