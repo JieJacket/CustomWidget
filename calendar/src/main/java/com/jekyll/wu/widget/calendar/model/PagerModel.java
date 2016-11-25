@@ -11,16 +11,8 @@ import java.util.List;
  * Created by jie on 2016/11/17.
  */
 
-public class WeekModel implements Parcelable {
-    private List<DayOfWeek> week;
-
-    public List<DayOfWeek> getWeek() {
-        return week;
-    }
-
-    public void setWeek(List<DayOfWeek> week) {
-        this.week = week;
-    }
+public class PagerModel implements Parcelable {
+    public List<DayModel> week;
 
 
     @Override
@@ -33,22 +25,22 @@ public class WeekModel implements Parcelable {
         dest.writeTypedList(this.week);
     }
 
-    public WeekModel() {
+    public PagerModel() {
     }
 
-    protected WeekModel(Parcel in) {
-        this.week = in.createTypedArrayList(DayOfWeek.CREATOR);
+    protected PagerModel(Parcel in) {
+        this.week = in.createTypedArrayList(DayModel.CREATOR);
     }
 
-    public static final Creator<WeekModel> CREATOR = new Creator<WeekModel>() {
+    public static final Creator<PagerModel> CREATOR = new Creator<PagerModel>() {
         @Override
-        public WeekModel createFromParcel(Parcel source) {
-            return new WeekModel(source);
+        public PagerModel createFromParcel(Parcel source) {
+            return new PagerModel(source);
         }
 
         @Override
-        public WeekModel[] newArray(int size) {
-            return new WeekModel[size];
+        public PagerModel[] newArray(int size) {
+            return new PagerModel[size];
         }
     };
 
@@ -57,12 +49,12 @@ public class WeekModel implements Parcelable {
      * @param dayOfWeek
      * @return
      */
-    public boolean contain(DayOfWeek dayOfWeek) {
-        if (this.getWeek() == null || dayOfWeek == null) {
+    public boolean contain(DayModel dayOfWeek) {
+        if (week == null || dayOfWeek == null) {
             return false;
         }
-        List<DayOfWeek> weeks = this.getWeek();
-        for (DayOfWeek day : weeks) {
+        List<DayModel> weeks = week;
+        for (DayModel day : weeks) {
             if (dayOfWeek.equals(day)) {
                 return true;
             }
@@ -71,14 +63,21 @@ public class WeekModel implements Parcelable {
     }
 
     public boolean contain(Calendar calendar){
-        DayOfWeek day = new DayOfWeek();
+        DayModel day = new DayModel();
         day.setDate(calendar.getTime());
         return contain(day);
     }
 
     public boolean contain(Date date){
-        DayOfWeek day = new DayOfWeek();
+        DayModel day = new DayModel();
         day.setDate(date);
         return contain(day);
+    }
+
+    @Override
+    public String toString() {
+        return "PagerModel{" +
+                "week=" + week +
+                '}';
     }
 }

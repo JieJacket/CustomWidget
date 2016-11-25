@@ -9,13 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.jekyll.wu.widget.R;
-import com.jekyll.wu.widget.calendar.adapter.WeekDaysAdapter;
+import com.jekyll.wu.widget.calendar.adapter.DaysAdapter;
 import com.jekyll.wu.widget.calendar.listener.OnDateCheckedListener;
 import com.jekyll.wu.widget.calendar.listener.OnDateClickListener;
-import com.jekyll.wu.widget.calendar.model.DayOfWeek;
-import com.jekyll.wu.widget.calendar.model.WeekModel;
+import com.jekyll.wu.widget.calendar.model.DayModel;
+import com.jekyll.wu.widget.calendar.model.PagerModel;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -31,19 +30,19 @@ import java.util.Set;
 
 public class WeekFragment extends Fragment implements OnDateClickListener {
 
-    private WeekModel weekModel;
+    private PagerModel weekModel;
     private View view;
 
     private RecyclerView recyclerView;
-    private WeekDaysAdapter adapter;
+    private DaysAdapter adapter;
 
-    private List<DayOfWeek> list;
+    private List<DayModel> list;
     private Set<Date> selectedDates;
     private List<Date> validDates;
 
     private OnDateCheckedListener onDateCheckedListener;
 
-    public static WeekFragment newInstance(WeekModel model) {
+    public static WeekFragment newInstance(PagerModel model) {
         WeekFragment instance = new WeekFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("Week", model);
@@ -55,9 +54,12 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         weekModel = getArguments().getParcelable("Week");
-        if (getActivity() instanceof OnDateCheckedListener) {
+        if (getParentFragment() != null && getParentFragment() instanceof OnDateCheckedListener) {
+            onDateCheckedListener = (OnDateCheckedListener) getParentFragment();
+        } else if (getActivity() instanceof OnDateCheckedListener) {
             onDateCheckedListener = (OnDateCheckedListener) getActivity();
         }
+
 
     }
 
@@ -68,8 +70,8 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
             view = inflater.inflate(R.layout.week_item, container, false);
             recyclerView = (RecyclerView) view.findViewById(R.id.rv_item);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 7));
-            list = weekModel.getWeek();
-            adapter = new WeekDaysAdapter(getActivity(), list);
+            list = weekModel.week;
+            adapter = new DaysAdapter(getActivity(), list);
             recyclerView.setAdapter(adapter);
             recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             adapter.setOnDateClickListener(this);
@@ -87,9 +89,9 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
     private void initSelectedDates() {
         selectedDates = new HashSet<>();
         if (weekModel != null) {
-            List<DayOfWeek> week = weekModel.getWeek();
+            List<DayModel> week = weekModel.week;
             if (week != null && !week.isEmpty()) {
-                for (DayOfWeek day : week) {
+                for (DayModel day : week) {
                     if (day.isSelected()) {
                         selectedDates.add(day.getDate());
                     }
@@ -97,7 +99,7 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
             }
         }
         validDates = new LinkedList<>();
-        for (DayOfWeek dayOfWeek : list) {
+        for (DayModel dayOfWeek : list) {
             validDates.add(dayOfWeek.getDate());
         }
     }
@@ -118,7 +120,7 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
     }
 
     private void checkItem(int position) {
-        DayOfWeek dayOfWeek = list.get(position);
+        DayModel dayOfWeek = list.get(position);
         if (selectedDates.contains(dayOfWeek.getDate())) {
             removeSelection(dayOfWeek.getDate());
         } else {
@@ -127,9 +129,9 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
     }
 
     public void notifyDateSetChanged() {
-        Iterator<DayOfWeek> iterator = list.iterator();
+        Iterator<DayModel> iterator = list.iterator();
         while (iterator.hasNext()) {
-            DayOfWeek day = iterator.next();
+            DayModel day = iterator.next();
             if (selectedDates.contains(day.getDate())) {
                 day.setSelected(true);
             } else {

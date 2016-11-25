@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.jekyll.wu.widget.R;
 import com.jekyll.wu.widget.calendar.listener.OnDateClickListener;
-import com.jekyll.wu.widget.calendar.model.DayOfWeek;
+import com.jekyll.wu.widget.calendar.model.DayModel;
 import com.jekyll.wu.widget.calendar.widget.DayView;
 
 import java.util.List;
@@ -19,11 +19,11 @@ import java.util.List;
 
 public class WeekListAdapter extends RecyclerView.Adapter<WeekListAdapter.ViewHolder> {
     private Context context;
-    private List<DayOfWeek> days;
+    private List<DayModel> days;
     private LayoutInflater inflater;
     private OnDateClickListener onDateClickListener;
 
-    public WeekListAdapter(Context context, List<DayOfWeek> days) {
+    public WeekListAdapter(Context context, List<DayModel> days) {
         this.context = context;
         this.days = days;
         this.inflater = LayoutInflater.from(context);
@@ -36,7 +36,7 @@ public class WeekListAdapter extends RecyclerView.Adapter<WeekListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DayOfWeek day = days.get(position);
+        DayModel day = days.get(position);
         holder.dayView.setDayOfWeek(day);
     }
 

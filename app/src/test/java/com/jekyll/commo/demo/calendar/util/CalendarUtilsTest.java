@@ -1,9 +1,12 @@
 package com.jekyll.commo.demo.calendar.util;
 
 
-import com.jekyll.common.calendar.model.DayOfWeek;
-import com.jekyll.common.calendar.model.WeekModel;
-import com.jekyll.common.calendar.util.CalendarUtils;
+
+import com.jekyll.wu.widget.calendar.model.DayModel;
+import com.jekyll.wu.widget.calendar.model.DayModel;
+import com.jekyll.wu.widget.calendar.model.PagerModel;
+import com.jekyll.wu.widget.calendar.model.PagerModel;
+import com.jekyll.wu.widget.calendar.util.CalendarUtils;
 
 import org.junit.Test;
 
@@ -20,8 +23,8 @@ public class CalendarUtilsTest {
         CalendarUtils utils = new CalendarUtils();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_WEEK, 7);
-        WeekModel dayOfWeeks = utils.calculatorDate(calendar);
-        for (DayOfWeek day : dayOfWeeks.getWeek()) {
+        PagerModel dayOfWeeks = utils.calculatorWeek(calendar);
+        for (DayModel day : dayOfWeeks.week) {
             System.out.println(day);
         }
     }
@@ -30,8 +33,8 @@ public class CalendarUtilsTest {
     public void getTheDateAfterWeek() throws Exception {
         CalendarUtils utils = new CalendarUtils();
 
-        WeekModel dayOfWeeks = utils.getTheDateAfterWeek(Calendar.getInstance());
-        for (DayOfWeek day : dayOfWeeks.getWeek()) {
+        PagerModel dayOfWeeks = utils.getTheDateAfterWeek(Calendar.getInstance());
+        for (DayModel day : dayOfWeeks.week) {
             System.out.println(day);
         }
     }
@@ -39,11 +42,11 @@ public class CalendarUtilsTest {
     @Test
     public void getTheDateAfterWeeks() throws Exception {
         CalendarUtils utils = new CalendarUtils();
-        List<WeekModel> theAfterWeeks = utils.getTheAfterWeeks(Calendar.getInstance(), 10);
+        List<PagerModel> theAfterWeeks = utils.getTheAfterWeeks(Calendar.getInstance(), 10);
         for (int i = 0; i < theAfterWeeks.size(); i++) {
             System.out.println(i);
-            WeekModel weekModel = theAfterWeeks.get(i);
-            for (DayOfWeek day : weekModel.getWeek()) {
+            PagerModel weekModel = theAfterWeeks.get(i);
+            for (DayModel day : weekModel.week) {
                 System.out.println(day);
             }
         }
@@ -52,11 +55,11 @@ public class CalendarUtilsTest {
     @Test
     public void getTheDateBeforeWeeks() throws Exception {
         CalendarUtils utils = new CalendarUtils();
-        List<WeekModel> theAfterWeeks = utils.getTheDateBeforeWeeks(Calendar.getInstance(), 10);
+        List<PagerModel> theAfterWeeks = utils.getTheDateBeforeWeeks(Calendar.getInstance(), 10);
         for (int i = 0; i < theAfterWeeks.size(); i++) {
             System.out.println(i);
-            WeekModel weekModel = theAfterWeeks.get(i);
-            for (DayOfWeek day : weekModel.getWeek()) {
+            PagerModel weekModel = theAfterWeeks.get(i);
+            for (DayModel day : weekModel.week) {
                 System.out.println(day);
             }
         }
@@ -65,8 +68,8 @@ public class CalendarUtilsTest {
     @Test
     public void getTheDateBeforeWeek() throws Exception {
         CalendarUtils utils = new CalendarUtils();
-        WeekModel dayOfWeeks = utils.getTheDateBeforeWeek(Calendar.getInstance());
-        for (DayOfWeek day : dayOfWeeks.getWeek()) {
+        PagerModel dayOfWeeks = utils.getTheDateBeforeWeek(Calendar.getInstance());
+        for (DayModel day : dayOfWeeks.week) {
             System.out.println(day);
         }
     }
@@ -79,6 +82,14 @@ public class CalendarUtilsTest {
 
     @Test
     public void weekContainTheDay() throws Exception {
+    }
+
+    @Test
+    public void calculatorMonth(){
+        CalendarUtils utils = new CalendarUtils();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH,6);
+        System.out.println(utils.calculatorMonth(calendar));
     }
 
 }

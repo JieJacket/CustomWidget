@@ -9,17 +9,9 @@
     tools:context="com.jekyll.common.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.jekyll.wu.widget.calendar.widget.CustomCalendar
-        android:id="@+id/cc_test"
-        android:background="#123456"
-        android:gravity="center"
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/btn_test"
-        android:text="get selection"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </RelativeLayout>

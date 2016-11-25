@@ -5,8 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-
-import com.jekyll.wu.widget.calendar.model.WeekModel;
+import com.jekyll.wu.widget.calendar.model.PagerModel;
 import com.jekyll.wu.widget.calendar.widget.WeekFragment;
 
 import java.util.List;
@@ -16,10 +15,10 @@ import java.util.List;
  */
 
 public class CalendarPagerAdapter extends FragmentPagerAdapter {
-    private List<WeekModel> weekModels;
+    private List<PagerModel> weekModels;
     public WeekFragment currentFragment;
 
-    public CalendarPagerAdapter(FragmentManager fm, List<WeekModel> weekModels) {
+    public CalendarPagerAdapter(FragmentManager fm, List<PagerModel> weekModels) {
         super(fm);
         this.weekModels = weekModels;
     }

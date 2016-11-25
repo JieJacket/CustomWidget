@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 
-import com.jekyll.wu.widget.calendar.model.WeekModel;
+import com.jekyll.wu.widget.calendar.model.PagerModel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class WeekView extends LinearLayout {
 
-    private WeekModel weekModel = new WeekModel();
+    private PagerModel weekModel = new PagerModel();
 
     private final static int VIEW_COUNT = 7;
 
@@ -50,16 +50,16 @@ public class WeekView extends LinearLayout {
 
     }
 
-    public WeekModel getWeekModel() {
+    public PagerModel getWeekModel() {
         return weekModel;
     }
 
-    public void setWeekModel(WeekModel weekModel) {
+    public void setWeekModel(PagerModel weekModel) {
         this.weekModel = weekModel;
-        if (weekModel != null && weekModel.getWeek() != null && dayOfWeeks.size() == weekModel.getWeek().size()) {
+        if (weekModel != null && weekModel.week != null && dayOfWeeks.size() == weekModel.week.size()) {
             for (int i = 0; i < dayOfWeeks.size(); i++) {
                 DayView dayView = dayOfWeeks.get(i);
-                dayView.setDayOfWeek(weekModel.getWeek().get(i));
+                dayView.setDayOfWeek(weekModel.week.get(i));
             }
         }
     }

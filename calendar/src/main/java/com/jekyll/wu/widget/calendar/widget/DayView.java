@@ -2,17 +2,18 @@ package com.jekyll.wu.widget.calendar.widget;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.TextViewCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.jekyll.wu.widget.R;
-import com.jekyll.wu.widget.calendar.model.DayOfWeek;
+import com.jekyll.wu.widget.calendar.model.DayModel;
 import com.jekyll.wu.widget.calendar.util.ViewUtils;
 
 import java.util.Calendar;
@@ -28,7 +29,7 @@ public class DayView extends LinearLayout implements View.OnClickListener {
     private TextView monthText;
     private boolean isSelected;
 
-    private DayOfWeek dayOfWeek;
+    private DayModel dayOfWeek;
 
     private static final String[] MONTHS = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
 
@@ -49,10 +50,7 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         setOrientation(VERTICAL);
         addDayView(context);
         addMonthView(context);
-//        dayText.setText("1");
-//        monthText.setText(MONTHS[8]);
         resetViewStatus(isSelected);
-//        setOnClickListener(this);
     }
 
     private void addDayView(Context context) {
@@ -63,7 +61,8 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         dayText.setGravity(Gravity.CENTER);
         TextViewCompat.setTextAppearance(dayText, R.style.DefaultDayViewStyle);
         dayText.setBackgroundResource(R.drawable.day_view_content_background);
-        dayParams.bottomMargin = ViewUtils.dp2px(context, 8);
+        dayText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        dayParams.bottomMargin = ViewUtils.dp2px(context, 2);
         addView(dayText);
     }
 
@@ -73,21 +72,23 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         monthParams.gravity = Gravity.CENTER_HORIZONTAL;
         monthText.setLayoutParams(monthParams);
         monthText.setTextColor(Color.parseColor("#cccccc"));
+        monthText.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
         addView(monthText);
     }
 
-    public DayOfWeek getDayOfWeek() {
+    public DayModel getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+    public void setDayOfWeek(DayModel dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
-        if (dayOfWeek != null) {
+        if (dayOfWeek != null && dayOfWeek.getDate() != null) {
             dayText.setText(getDayLabel(dayOfWeek.getDate()));
             monthText.setText(getMonthLabel(dayOfWeek.getDate()));
             setSelected(dayOfWeek.isSelected());
         } else {
             dayText.setText(null);
+            dayText.setBackgroundColor(Color.TRANSPARENT);
             monthText.setText(null);
         }
     }
@@ -103,6 +104,7 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         resetViewStatus(isSelected);
     }
 
+    @NonNull
     private String getDayLabel(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -117,6 +119,9 @@ public class DayView extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (dayOfWeek.getDate() == null) {
+            return;
+        }
         isSelected = !isSelected;
         resetViewStatus(isSelected);
     }

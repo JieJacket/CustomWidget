@@ -2,7 +2,7 @@ package com.jekyll.wu.widget.calendar.listener;
 
 import android.view.View;
 
-import com.jekyll.wu.widget.calendar.model.DayOfWeek;
+import com.jekyll.wu.widget.calendar.model.DayModel;
 
 
 /**
@@ -10,5 +10,5 @@ import com.jekyll.wu.widget.calendar.model.DayOfWeek;
  */
 
 public interface OnDateCheckedListener {
-    void onDateClicked(View view, DayOfWeek day);
+    void onDateClicked(View view, DayModel day);
 }

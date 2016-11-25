@@ -2,25 +2,29 @@ package com.jekyll.wu.widget.calendar.widget;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import com.jekyll.wu.widget.R;
 import com.jekyll.wu.widget.calendar.adapter.CalendarPagerAdapter;
-import com.jekyll.wu.widget.calendar.model.DayOfWeek;
-import com.jekyll.wu.widget.calendar.model.WeekModel;
+import com.jekyll.wu.widget.calendar.model.DayModel;
+import com.jekyll.wu.widget.calendar.model.PagerModel;
 import com.jekyll.wu.widget.calendar.util.CalendarUtils;
 import com.jekyll.wu.widget.calendar.util.ViewUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -34,14 +38,28 @@ import java.util.Locale;
 public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChangeListener {
 
     private static final String[] WEEK = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
-    private static final String[] MONTHS = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
+    private static final String TAG = CustomCalendar.class.getSimpleName();
+//    private static final String[] MONTHS = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
 
-    private LinearLayout topContainer;//顶部存放星期的容器
-    private ViewPager calendarContainer;
+    private WrapContentHeightViewPager calendarContainer;
     private CalendarPagerAdapter pagerAdapter;
-    private List<WeekModel> weekModels;
+    private List<PagerModel> pagerModels;
 
     private TextView tvDate;
+
+    public static final int WEEK_STYLE = 1;
+
+    public static final int MONTH_STYLE = 2;
+
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
+
+    @IntDef({WEEK_STYLE, MONTH_STYLE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Style {
+    }
+
+    @Style
+    int curStyle = WEEK_STYLE;
 
     public CustomCalendar(Context context) {
         this(context, null);
@@ -56,30 +74,42 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
         init(context);
     }
 
+    /**
+     * 初始化
+     *
+     * @param context
+     */
     private void init(Context context) {
         setOrientation(VERTICAL);
         addTopLabel(context);
         addCalendar(context);
+        initData();
     }
 
+    private void initData() {
+        pagerModels = new LinkedList<>();
+    }
 
+    /**
+     * 添加上层的月份与星期
+     *
+     * @param context
+     */
     private void addTopLabel(Context context) {
         tvDate = new TextView(context);
         LayoutParams dateParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtils.dp2px(context, 36));
         tvDate.setLayoutParams(dateParams);
         tvDate.setTextColor(Color.parseColor("#cccccc"));
-        tvDate.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
-        tvDate.setGravity(Gravity.CENTER);
+        tvDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         tvDate.setGravity(Gravity.CENTER);
         addView(tvDate);
 
-
-        topContainer = new LinearLayout(context);
+        LinearLayout topContainer = new LinearLayout(context);
         topContainer.setOrientation(HORIZONTAL);
-        topContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        topContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtils.dp2px(context, 36)));
         for (String day : WEEK) {
             TextView tv = new TextView(context);
-            LayoutParams lp = new LayoutParams(0, ViewUtils.dp2px(context, 36));
+            LayoutParams lp = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
             lp.weight = 1;
             tv.setLayoutParams(lp);
             tv.setText(day);
@@ -90,21 +120,27 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
         addView(topContainer);
     }
 
+    /**
+     * 添加日历
+     *
+     * @param context
+     */
     private void addCalendar(Context context) {
-        calendarContainer = new ViewPager(context);
+        calendarContainer = new WrapContentHeightViewPager(context);
         calendarContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         calendarContainer.addOnPageChangeListener(this);
         calendarContainer.setId(R.id.calendar_vp);
         addView(calendarContainer);
     }
 
-    public void setWeekModels(FragmentManager fm, List<WeekModel> weekModels) {
-        this.weekModels = weekModels;
-        pagerAdapter = new CalendarPagerAdapter(fm, weekModels);
+    public void setPagerModels(FragmentManager fm, List<PagerModel> pagerModels) {
+        this.pagerModels.clear();
+        this.pagerModels.addAll(pagerModels);
+        pagerAdapter = new CalendarPagerAdapter(fm, pagerModels);
         calendarContainer.setAdapter(pagerAdapter);
         pagerAdapter.notifyDataSetChanged();
-        if (weekModels.size() > 0) {
-            checkCurMonth(weekModels.get(0));
+        if (pagerModels.size() > 0) {
+            checkCurMonth(pagerModels.get(0));
         }
     }
 
@@ -120,26 +156,42 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
         }
     }
 
+
+    public void setCalendarStyle(@Style int curStyle) {
+        this.curStyle = curStyle;
+    }
+
     /**
      * 设置日历的开始和结束日期
      *
      * @param start
      * @param end
      */
-    public List<WeekModel> setCalendarLimit(Calendar start, Calendar end) {
-        weekModels = new LinkedList<>();
+    public List<PagerModel> setCalendarRange(Calendar start, Calendar end) {
+        List<PagerModel> models = new LinkedList<>();
         if (start == null || end == null || start.getTimeInMillis() > end.getTimeInMillis()) {
-            return weekModels;
+            return models;
         }
 
-        CalendarUtils utils = new CalendarUtils();
         while (true) {
-            WeekModel model = utils.calculatorDate(start);
-            weekModels.add(model);
-            if (model.contain(end)) {
-                return weekModels;
+            PagerModel model = new PagerModel();
+            Log.i(TAG, String.format(Locale.getDefault(), "start:%s;end:%s", start.getTime().toString(), end.getTime().toString()));
+            switch (curStyle) {
+                case WEEK_STYLE:
+                    model = CalendarUtils.calculatorWeek(start);
+                    start.add(Calendar.DAY_OF_MONTH, 7);
+                    break;
+                case MONTH_STYLE:
+                    model = CalendarUtils.calculatorMonth(start);
+                    start.add(Calendar.MONTH, 1);
+                    break;
+                default:
+                    break;
             }
-            start.add(Calendar.DAY_OF_MONTH, 7);
+            models.add(model);
+            if (model.contain(end)) {
+                return models;
+            }
         }
     }
 
@@ -149,33 +201,30 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
      * @param dates
      */
     public void setSelectedDates(Date... dates) {
-        if (this.weekModels.isEmpty() || dates == null || dates.length == 0) {
+        if (this.pagerModels.isEmpty() || dates == null || dates.length == 0) {
             return;
         }
-        Iterator<WeekModel> iterator = this.weekModels.iterator();
+        Iterator<PagerModel> iterator = this.pagerModels.iterator();
         while (iterator.hasNext()) {
-            WeekModel weekModel = iterator.next();
-            if (weekModel != null && weekModel.getWeek() != null) {
-                Iterator<DayOfWeek> weekIterator = weekModel.getWeek().iterator();
+            PagerModel weekModel = iterator.next();
+            if (weekModel != null && weekModel.week != null) {
+                Iterator<DayModel> weekIterator = weekModel.week.iterator();
                 while (weekIterator.hasNext()) {
-                    DayOfWeek next = weekIterator.next();
+                    DayModel next = weekIterator.next();
                     for (Date date : dates) {
-                        DayOfWeek day = new DayOfWeek();
+                        DayModel day = new DayModel();
                         day.setDate(date);
                         if (next.equals(day)) {
                             next.setSelected(true);
                         }
-
                     }
                 }
             }
 
         }
-
         pagerAdapter.notifyDataSetChanged();
 
     }
-
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -184,7 +233,7 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
 
     @Override
     public void onPageSelected(int position) {
-        checkCurMonth(weekModels.get(position));
+        checkCurMonth(pagerModels.get(position));
     }
 
     /**
@@ -192,17 +241,27 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
      *
      * @param model
      */
-    private void checkCurMonth(WeekModel model) {
-        List<DayOfWeek> week = model.getWeek();
-        DayOfWeek dayOfWeek = Collections.max(week);
+    private void checkCurMonth(PagerModel model) {
+        List<DayModel> week = model.week;
+        DayModel dayOfWeek = CalendarUtils.getFirstValidDay(week);
 
         Calendar calendar = Calendar.getInstance();
+        if (dayOfWeek.getDate() == null) {
+            return;
+        }
         calendar.setTime(dayOfWeek.getDate());
 
-        int year = calendar.get(Calendar.YEAR);
-//        String month = MONTHS[calendar.get(Calendar.MONTH)];
+        if (dateFormat != null) {
+            tvDate.setText(dateFormat.format(calendar.getTime()));
+        }
+    }
 
-        tvDate.setText(String.format(Locale.getDefault(), "%d", year));
+
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+        if (calendarContainer != null) {
+            setCurrentWeek(calendarContainer.getCurrentItem());
+        }
     }
 
     @Override
@@ -215,11 +274,11 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
      *
      * @return
      */
-    public List<DayOfWeek> getSelections() {
-        List<DayOfWeek> select = new LinkedList<>();
-        if (weekModels != null) {
-            for (WeekModel week : weekModels) {
-                for (DayOfWeek day : week.getWeek()) {
+    public List<DayModel> getSelections() {
+        List<DayModel> select = new LinkedList<>();
+        if (pagerModels != null) {
+            for (PagerModel week : pagerModels) {
+                for (DayModel day : week.week) {
                     if (day.isSelected()) {
                         select.add(day);
                     }
