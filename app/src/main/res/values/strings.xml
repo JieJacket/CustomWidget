@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JekyllDemo</string>
+    <string name="app_name">日历</string>
     <string name="action_settings">Settings</string>
     <string name="str_selections">已选择</string>
     <string name="str_month">月份样式</string>
