@@ -51,7 +51,7 @@ This is two styles for calendar view,you can set it by follow code;
     customCalendar.setCalendarStyle(CustomCalendar.MONTH_STYLE);//一页显示一月
 ```
 
-If you want OnClick event for each DayView,just implement OnDateCheckedListener on Activity of Fragment.
+If you want OnClick event for each DayView,just implement OnDateCheckedListener on Activity or Fragment.
 
 ```java
 public class CalendarFragment extends Fragment implements OnDateCheckedListener {
@@ -67,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements OnDateCheckedList
 
     }
 }
+```
+
+And you can set the most top label's style for yourself,just do ...
+
+```java
+    customCalendar.setDateFormat(new SimpleDateFormat("yyyy年MM月", Locale.getDefault()));
 ```
 
 
