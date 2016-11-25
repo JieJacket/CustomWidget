@@ -44,10 +44,32 @@ Include `CustomCalender` in your layout XML.
 
 ```
 
+This is two styles for calendar view,you can set it by follow code;
+
 ```java
     customCalendar.setCalendarStyle(CustomCalendar.WEEK_STYLE);//一页只显示一周
     customCalendar.setCalendarStyle(CustomCalendar.MONTH_STYLE);//一页显示一月
 ```
+
+If you want OnClick event for each DayView,just implement OnDateCheckedListener on Activity of Fragment.
+
+```java
+public class CalendarFragment extends Fragment implements OnDateCheckedListener {
+    @Override
+    public void onDateClicked(View view, DayModel day) {
+
+    }
+}
+
+public class MainActivity extends AppCompatActivity implements OnDateCheckedListener {
+    @Override
+        public void onDateClicked(View view, DayModel day) {
+
+    }
+}
+```
+
+
 Download
 --------
 
