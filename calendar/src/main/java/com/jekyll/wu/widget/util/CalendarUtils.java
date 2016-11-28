@@ -1,16 +1,14 @@
-package com.jekyll.wu.widget.calendar.util;
+package com.jekyll.wu.widget.util;
 
 
-import com.jekyll.wu.widget.calendar.model.DayModel;
-import com.jekyll.wu.widget.calendar.model.PagerModel;
+import com.jekyll.wu.widget.model.DayModel;
+import com.jekyll.wu.widget.model.PagerModel;
 
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by jie on 2016/11/17.

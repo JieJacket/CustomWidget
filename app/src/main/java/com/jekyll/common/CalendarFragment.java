@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jekyll.wu.widget.calendar.listener.OnDateCheckedListener;
-import com.jekyll.wu.widget.calendar.model.DayModel;
-import com.jekyll.wu.widget.calendar.model.PagerModel;
-import com.jekyll.wu.widget.calendar.widget.CustomCalendar;
+import com.jekyll.wu.widget.CustomCalendar;
+import com.jekyll.wu.widget.listener.OnDateCheckedListener;
+import com.jekyll.wu.widget.model.DayModel;
+import com.jekyll.wu.widget.model.PagerModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -64,11 +64,19 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
             Date startDate = format.parse("20151001");
             start.setTime(startDate);
             Calendar end = Calendar.getInstance();
+            if (style == CustomCalendar.WEEK_STYLE) {
+                customCalendar.setDateTextDefaultRes(R.drawable.date_text_default);
+                customCalendar.setDateTextSelectedRes(R.drawable.date_text_selected);
+                customCalendar.setDateTextAppearance(R.style.MyDefaultTextAppearance);
+                customCalendar.setDateCheckedTextAppearance(R.style.MyCheckedTextAppearance);
+                customCalendar.setDateCheckedBackgroundRes(R.drawable.date_checked_shape);
+            }
             customCalendar.setCalendarStyle(style);
             models = new LinkedList<>();
             models = customCalendar.setCalendarRange(start, end);//设置日期的开始结束位置
             customCalendar.setPagerModels(getChildFragmentManager(), models);
             customCalendar.setCurrentWeek(models.size() - 1);//设置日期到最后一页
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -80,7 +88,7 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
     }
 
     public List<DayModel> getSelections() {
-        if (customCalendar != null){
+        if (customCalendar != null) {
             return customCalendar.getSelections();
         }
         return null;

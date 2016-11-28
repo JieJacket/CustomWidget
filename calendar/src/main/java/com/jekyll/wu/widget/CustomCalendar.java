@@ -1,8 +1,10 @@
-package com.jekyll.wu.widget.calendar.widget;
+package com.jekyll.wu.widget;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -13,12 +15,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jekyll.wu.widget.R;
-import com.jekyll.wu.widget.calendar.adapter.CalendarPagerAdapter;
-import com.jekyll.wu.widget.calendar.model.DayModel;
-import com.jekyll.wu.widget.calendar.model.PagerModel;
-import com.jekyll.wu.widget.calendar.util.CalendarUtils;
-import com.jekyll.wu.widget.calendar.util.ViewUtils;
+import com.jekyll.wu.widget.adapter.CalendarPagerAdapter;
+import com.jekyll.wu.widget.calendar.R;
+import com.jekyll.wu.widget.model.DateItemStyle;
+import com.jekyll.wu.widget.model.DayModel;
+import com.jekyll.wu.widget.model.PagerModel;
+import com.jekyll.wu.widget.util.CalendarUtils;
+import com.jekyll.wu.widget.util.ViewUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -61,6 +64,9 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
     @Style
     int curStyle = WEEK_STYLE;
 
+
+    private DateItemStyle itemStyle;
+
     public CustomCalendar(Context context) {
         this(context, null);
     }
@@ -88,6 +94,7 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
 
     private void initData() {
         pagerModels = new LinkedList<>();
+        itemStyle = new DateItemStyle();
     }
 
     /**
@@ -136,7 +143,7 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
     public void setPagerModels(FragmentManager fm, List<PagerModel> pagerModels) {
         this.pagerModels.clear();
         this.pagerModels.addAll(pagerModels);
-        pagerAdapter = new CalendarPagerAdapter(fm, pagerModels);
+        pagerAdapter = new CalendarPagerAdapter(fm, pagerModels, itemStyle);
         calendarContainer.setAdapter(pagerAdapter);
         pagerAdapter.notifyDataSetChanged();
         if (pagerModels.size() > 0) {
@@ -225,6 +232,51 @@ public class CustomCalendar extends LinearLayout implements ViewPager.OnPageChan
         pagerAdapter.notifyDataSetChanged();
 
     }
+
+    public void setDateCheckedBackgroundRes(@DrawableRes int resId) {
+        this.itemStyle.setDateCheckedRes(resId);
+        if (pagerAdapter != null) {
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    public void setDateDefaultBackgroundRes(@DrawableRes int resId) {
+        this.itemStyle.setDateDefaultRes(resId);
+        if (pagerAdapter != null) {
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setDateTextSelectedRes(@DrawableRes int resId) {
+        this.itemStyle.setDateTextCheckedRes(resId);
+        if (pagerAdapter != null) {
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setDateTextDefaultRes(@DrawableRes int resId) {
+        this.itemStyle.setDateTextDefaultRes(resId);
+        if (pagerAdapter != null) {
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setDateTextAppearance(@StyleRes int resId) {
+        this.itemStyle.setDateTextAppearance(resId);
+        if (pagerAdapter != null) {
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    public void setDateCheckedTextAppearance(@StyleRes int resId) {
+        this.itemStyle.setDateTextCheckedAppearance(resId);
+        if (pagerAdapter != null) {
+            pagerAdapter.notifyDataSetChanged();
+        }
+    }
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -2,11 +2,9 @@ package com.jekyll.commo.demo.calendar.util;
 
 
 
-import com.jekyll.wu.widget.calendar.model.DayModel;
-import com.jekyll.wu.widget.calendar.model.DayModel;
-import com.jekyll.wu.widget.calendar.model.PagerModel;
-import com.jekyll.wu.widget.calendar.model.PagerModel;
-import com.jekyll.wu.widget.calendar.util.CalendarUtils;
+import com.jekyll.wu.widget.model.DayModel;
+import com.jekyll.wu.widget.model.PagerModel;
+import com.jekyll.wu.widget.util.CalendarUtils;
 
 import org.junit.Test;
 

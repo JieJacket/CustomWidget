@@ -1,4 +1,4 @@
-package com.jekyll.wu.widget.calendar.model;
+package com.jekyll.wu.widget.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,6 +16,7 @@ public class DayModel implements Parcelable, Comparable<DayModel> {
     private Date date;
     private boolean isSelected;
     private boolean isEnable = true;
+
 
     public boolean isEnable() {
         return isEnable;

@@ -1,4 +1,4 @@
-package com.jekyll.wu.widget.calendar.widget;
+package com.jekyll.wu.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

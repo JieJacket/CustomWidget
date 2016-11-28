@@ -1,6 +1,6 @@
-package com.jekyll.wu.widget.calendar.model;
+package com.jekyll.wu.widget.model;
 
-import com.jekyll.wu.widget.calendar.util.CalendarUtils;
+import com.jekyll.wu.widget.util.CalendarUtils;
 
 import org.junit.Test;
 

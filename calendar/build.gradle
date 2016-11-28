@@ -34,7 +34,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 // 项目引用的版本号，比如compile 'com.yanzhenjie:andserver:1.0.1'中的1.0.1就是这里配置的。
-version = "1.1.1"
+version = "2.0.1"
 
 // 定义两个链接，下面会用到。
 def siteUrl = 'https://github.com/JieJacket/CustomWidget' // 项目主页。

@@ -11,10 +11,10 @@ Include:[CustomCalendar](#calendar)
 
 ##<span id="calendar">CustomCalender</span>
 
-![alt text](./pic/calendar1.png "Title")
-![alt text](./pic/calendar2.png "Title")
-![alt text](./pic/calendar3.png "Title")
-![alt text](./pic/calendar4.png "Title")
+![alt text](./pic/calendar1.png "calendar1")
+![alt text](./pic/calendar2.png "calendar2")
+![alt text](./pic/calendar3.png "calendar3")
+![alt text](./pic/calendar4.png "calendar4")
 
 
 Usage
@@ -23,11 +23,11 @@ Usage
 Include `CustomCalender` in your layout XML.
 
 ```xml
- <com.jekyll.wu.widget.calendar.widget.CustomCalendar
+ <com.jekyll.wu.widget.CustomCalendar
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+       />
 ```
 ```java
     CustomCalendar customCalendar = (CustomCalendar) view.findViewById(R.id.cc_test);
@@ -75,6 +75,18 @@ And you can set the most top label's style for yourself,just do ...
     customCalendar.setDateFormat(new SimpleDateFormat("yyyy年MM月", Locale.getDefault()));
 ```
 
+If you want personal DayView's Style,you can set...
+
+```java
+    customCalendar.setDateTextDefaultRes(R.drawable.date_text_default);
+    customCalendar.setDateTextSelectedRes(R.drawable.date_text_selected);
+    customCalendar.setDateTextAppearance(R.style.MyDefaultTextAppearance);
+    customCalendar.setDateCheckedTextAppearance(R.style.MyCheckedTextAppearance);
+    customCalendar.setDateCheckedBackgroundRes(R.drawable.date_checked_shape);
+
+```
+![alt text](./pic/calendar5.png "calendar5")
+
 
 Download
 --------
@@ -87,13 +99,13 @@ You can also depend on the library through Maven:
 <dependency>
   <groupId>com.jekyll.wu.widget</groupId>
   <artifactId>calendar</artifactId>
-  <version>1.1.1</version>
+  <version>2.0.1</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.jekyll.wu.widget:calendar:1.1.1'
+compile 'com.jekyll.wu.widget:calendar:2.0.1'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].

@@ -1,12 +1,13 @@
-package com.jekyll.wu.widget.calendar.adapter;
+package com.jekyll.wu.widget.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.jekyll.wu.widget.calendar.model.PagerModel;
-import com.jekyll.wu.widget.calendar.widget.WeekFragment;
+import com.jekyll.wu.widget.WeekFragment;
+import com.jekyll.wu.widget.model.DateItemStyle;
+import com.jekyll.wu.widget.model.PagerModel;
 
 import java.util.List;
 
@@ -17,15 +18,17 @@ import java.util.List;
 public class CalendarPagerAdapter extends FragmentPagerAdapter {
     private List<PagerModel> weekModels;
     public WeekFragment currentFragment;
+    private DateItemStyle itemStyle;
 
-    public CalendarPagerAdapter(FragmentManager fm, List<PagerModel> weekModels) {
+    public CalendarPagerAdapter(FragmentManager fm, List<PagerModel> weekModels, DateItemStyle itemStyle) {
         super(fm);
         this.weekModels = weekModels;
+        this.itemStyle = itemStyle;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return currentFragment = WeekFragment.newInstance(weekModels.get(position));
+        return currentFragment = WeekFragment.newInstance(weekModels.get(position), itemStyle);
     }
 
     @Override

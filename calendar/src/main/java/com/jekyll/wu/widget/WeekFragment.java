@@ -1,4 +1,4 @@
-package com.jekyll.wu.widget.calendar.widget;
+package com.jekyll.wu.widget;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jekyll.wu.widget.R;
-import com.jekyll.wu.widget.calendar.adapter.DaysAdapter;
-import com.jekyll.wu.widget.calendar.listener.OnDateCheckedListener;
-import com.jekyll.wu.widget.calendar.listener.OnDateClickListener;
-import com.jekyll.wu.widget.calendar.model.DayModel;
-import com.jekyll.wu.widget.calendar.model.PagerModel;
+import com.jekyll.wu.widget.adapter.DaysAdapter;
+import com.jekyll.wu.widget.calendar.R;
+import com.jekyll.wu.widget.listener.OnDateCheckedListener;
+import com.jekyll.wu.widget.listener.OnDateClickListener;
+import com.jekyll.wu.widget.model.DateItemStyle;
+import com.jekyll.wu.widget.model.DayModel;
+import com.jekyll.wu.widget.model.PagerModel;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -42,10 +43,17 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
 
     private OnDateCheckedListener onDateCheckedListener;
 
-    public static WeekFragment newInstance(PagerModel model) {
+    private DateItemStyle itemStyle;
+
+    public static final String WEEK_MODEL = "WEEK";
+
+    private static final String ITEM_STYLE = "DATE_ITEM_STYLE";
+
+    public static WeekFragment newInstance(PagerModel model, DateItemStyle itemStyle) {
         WeekFragment instance = new WeekFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("Week", model);
+        bundle.putParcelable(WEEK_MODEL, model);
+        bundle.putParcelable(ITEM_STYLE, itemStyle);
         instance.setArguments(bundle);
         return instance;
     }
@@ -53,7 +61,8 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        weekModel = getArguments().getParcelable("Week");
+        weekModel = getArguments().getParcelable(WEEK_MODEL);
+        itemStyle = getArguments().getParcelable(ITEM_STYLE);
         if (getParentFragment() != null && getParentFragment() instanceof OnDateCheckedListener) {
             onDateCheckedListener = (OnDateCheckedListener) getParentFragment();
         } else if (getActivity() instanceof OnDateCheckedListener) {
@@ -71,7 +80,7 @@ public class WeekFragment extends Fragment implements OnDateClickListener {
             recyclerView = (RecyclerView) view.findViewById(R.id.rv_item);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 7));
             list = weekModel.week;
-            adapter = new DaysAdapter(getActivity(), list);
+            adapter = new DaysAdapter(getActivity(), list, itemStyle);
             recyclerView.setAdapter(adapter);
             recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             adapter.setOnDateClickListener(this);

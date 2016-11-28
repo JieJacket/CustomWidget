@@ -8,7 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.jekyll.wu.widget.calendar.widget.CustomCalendar;
+import com.jekyll.wu.widget.CustomCalendar;
+
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.jekyll.wu.widget.calendar.util;
+package com.jekyll.wu.widget.util;
 
 import android.content.Context;
 

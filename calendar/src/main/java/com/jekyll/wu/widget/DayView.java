@@ -1,4 +1,4 @@
-package com.jekyll.wu.widget.calendar.widget;
+package com.jekyll.wu.widget;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,14 +7,14 @@ import android.support.v4.widget.TextViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jekyll.wu.widget.R;
-import com.jekyll.wu.widget.calendar.model.DayModel;
-import com.jekyll.wu.widget.calendar.util.ViewUtils;
+import com.jekyll.wu.widget.calendar.R;
+import com.jekyll.wu.widget.model.DateItemStyle;
+import com.jekyll.wu.widget.model.DayModel;
+import com.jekyll.wu.widget.util.ViewUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +24,7 @@ import java.util.Locale;
  * Created by jie on 2016/11/17.
  */
 
-public class DayView extends LinearLayout implements View.OnClickListener {
+public class DayView extends LinearLayout {
     private TextView dayText;
     private TextView monthText;
     private boolean isSelected;
@@ -32,6 +32,8 @@ public class DayView extends LinearLayout implements View.OnClickListener {
     private DayModel dayOfWeek;
 
     private static final String[] MONTHS = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
+
+    private DateItemStyle itemStyle;
 
     public DayView(Context context) {
         this(context, null);
@@ -54,6 +56,7 @@ public class DayView extends LinearLayout implements View.OnClickListener {
     }
 
     private void addDayView(Context context) {
+
         dayText = new TextView(context);
         LayoutParams dayParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dayParams.gravity = Gravity.CENTER_HORIZONTAL;
@@ -72,7 +75,7 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         monthParams.gravity = Gravity.CENTER_HORIZONTAL;
         monthText.setLayoutParams(monthParams);
         monthText.setTextColor(Color.parseColor("#cccccc"));
-        monthText.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+        monthText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         addView(monthText);
     }
 
@@ -80,15 +83,16 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         return dayOfWeek;
     }
 
-    public void setDayOfWeek(DayModel dayOfWeek) {
+    public void setDayOfWeek(DayModel dayOfWeek, DateItemStyle itemStyle) {
         this.dayOfWeek = dayOfWeek;
         if (dayOfWeek != null && dayOfWeek.getDate() != null) {
             dayText.setText(getDayLabel(dayOfWeek.getDate()));
             monthText.setText(getMonthLabel(dayOfWeek.getDate()));
+            this.itemStyle = itemStyle;
             setSelected(dayOfWeek.isSelected());
         } else {
             dayText.setText(null);
-            dayText.setBackgroundColor(Color.TRANSPARENT);
+            dayText.setBackgroundDrawable(null);
             monthText.setText(null);
         }
     }
@@ -117,22 +121,82 @@ public class DayView extends LinearLayout implements View.OnClickListener {
         return MONTHS[calendar.get(Calendar.MONTH)];
     }
 
-    @Override
-    public void onClick(View v) {
-        if (dayOfWeek.getDate() == null) {
-            return;
-        }
-        isSelected = !isSelected;
-        resetViewStatus(isSelected);
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (dayOfWeek.getDate() == null) {
+//            return;
+//        }
+//        isSelected = !isSelected;
+//        resetViewStatus(isSelected);
+//    }
 
     private void resetViewStatus(boolean isSelected) {
-        if (!isSelected) {
-            TextViewCompat.setTextAppearance(dayText, R.style.DefaultDayViewStyle);
-            dayText.setBackgroundResource(R.drawable.day_view_content_background);
+        setDateTextAppearance(isSelected);
+        setDateTextBackground(isSelected);
+        setDateBackground(isSelected);
+
+    }
+
+    /**
+     * 设置View的background
+     *
+     * @param isSelected
+     */
+    public void setDateBackground(boolean isSelected) {
+        if (isSelected) {
+            if (itemStyle != null && itemStyle.getDateCheckedRes() > 0) {
+                setBackgroundResource(itemStyle.getDateCheckedRes());
+            } else {
+                setBackgroundDrawable(null);
+            }
         } else {
-            TextViewCompat.setTextAppearance(dayText, R.style.SelectedDayViewStyle);
-            dayText.setBackgroundResource(R.drawable.selected_day_view_content_background);
+            if (itemStyle != null && itemStyle.getDateDefaultRes() > 0) {
+                setBackgroundResource(itemStyle.getDateDefaultRes());
+            } else {
+                setBackgroundDrawable(null);
+            }
+        }
+    }
+
+    /**
+     * 设置日期天数background
+     *
+     * @param isSelected
+     */
+    public void setDateTextBackground(boolean isSelected) {
+        if (isSelected) {
+            if (itemStyle != null && itemStyle.getDateTextCheckedRes() > 0) {
+                dayText.setBackgroundResource(itemStyle.getDateTextCheckedRes());
+            } else {
+                dayText.setBackgroundResource(R.drawable.selected_day_view_content_background);
+            }
+        } else {
+            if (itemStyle != null && itemStyle.getDateTextDefaultRes() > 0) {
+                dayText.setBackgroundResource(itemStyle.getDateTextDefaultRes());
+            } else {
+                dayText.setBackgroundResource(R.drawable.day_view_content_background);
+            }
+        }
+    }
+
+    /**
+     * 设置日期天数字体样式
+     *
+     * @param isSelected
+     */
+    public void setDateTextAppearance(boolean isSelected) {
+        if (isSelected) {
+            if (itemStyle != null && itemStyle.getDateTextCheckedAppearance() > 0) {
+                TextViewCompat.setTextAppearance(dayText, itemStyle.getDateTextCheckedAppearance());
+            } else {
+                TextViewCompat.setTextAppearance(dayText, R.style.SelectedDayViewStyle);
+            }
+        } else {
+            if (itemStyle != null && itemStyle.getDateTextAppearance() > 0) {
+                TextViewCompat.setTextAppearance(dayText, itemStyle.getDateTextAppearance());
+            } else {
+                TextViewCompat.setTextAppearance(dayText, R.style.DefaultDayViewStyle);
+            }
         }
     }
 }
