@@ -85,6 +85,13 @@ If you want personal DayView's Style,you can set...
     customCalendar.setDateCheckedBackgroundRes(R.drawable.date_checked_shape);
 
 ```
+You can set DayViews' enable ,just handle ths data sources:
+
+```java
+    CalendarUtils.setUnableAfterToday(Calendar.getInstance(),models);
+
+```
+
 ![alt text](./pic/calendar5.png "calendar5")
 
 

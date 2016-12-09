@@ -12,6 +12,7 @@ import com.jekyll.wu.widget.CustomCalendar;
 import com.jekyll.wu.widget.listener.OnDateCheckedListener;
 import com.jekyll.wu.widget.model.DayModel;
 import com.jekyll.wu.widget.model.PagerModel;
+import com.jekyll.wu.widget.util.CalendarUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -74,6 +75,7 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
             customCalendar.setCalendarStyle(style);
             models = new LinkedList<>();
             models = customCalendar.setCalendarRange(start, end);//设置日期的开始结束位置
+            CalendarUtils.setUnableAfterToday(Calendar.getInstance(),models);
             customCalendar.setPagerModels(getChildFragmentManager(), models);
             customCalendar.setCurrentWeek(models.size() - 1);//设置日期到最后一页
 

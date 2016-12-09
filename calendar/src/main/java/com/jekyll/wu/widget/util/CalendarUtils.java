@@ -7,6 +7,7 @@ import com.jekyll.wu.widget.model.PagerModel;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class CalendarUtils {
         }
         PagerModel weekModel = new PagerModel();
         weekModel.week = dayOfWeeks;
+
+
         return weekModel;
     }
 
@@ -135,9 +138,7 @@ public class CalendarUtils {
         int day = instance.get(Calendar.DAY_OF_MONTH);
         instance.add(Calendar.DAY_OF_MONTH, -day + 1);
 
-        int month = instance.get(Calendar.MONTH);
-        int year = instance.get(Calendar.YEAR);
-        int maxDate = getDaysByYearMonth(year, month);
+        int maxDate = instance.getActualMaximum(Calendar.DATE);
         List<DayModel> days = new LinkedList<>();
         while (maxDate > 0) {
             DayModel dayOfWeek = new DayModel();
@@ -160,9 +161,9 @@ public class CalendarUtils {
         c.setTime(dayModel.getDate());
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK) - 1;//0-6：周日-周六
 
-        if (dayOfWeek == 1){//第一天是周一不用处理
+        if (dayOfWeek == 1) {//第一天是周一不用处理
             return;
-        }else if (dayOfWeek == 0){
+        } else if (dayOfWeek == 0) {
             dayOfWeek = 7;
         }
         while (dayOfWeek > 1) {
@@ -175,18 +176,11 @@ public class CalendarUtils {
     /**
      * 根据年月获取当前月份的天数
      *
-     * @param year
-     * @param month
+     * @param calendar
      * @return
      */
-    public static int getDaysByYearMonth(int year, int month) {
-
-        Calendar a = Calendar.getInstance();
-        a.set(Calendar.YEAR, year);
-        a.set(Calendar.MONTH, month);
-        a.set(Calendar.DATE, 1);
-        a.roll(Calendar.DATE, -1);
-        return a.get(Calendar.DATE);
+    public static int getDaysByYearMonth(Calendar calendar) {
+        return calendar.getActualMaximum(Calendar.DATE);
     }
 
     /**
@@ -204,20 +198,44 @@ public class CalendarUtils {
         return dayOfWeek;
     }
 
-    public static DayModel getFirstValidDay(List<DayModel> models){
-        if (models == null || models.isEmpty()){
+    public static DayModel getFirstValidDay(List<DayModel> models) {
+        if (models == null || models.isEmpty()) {
             return null;
         }
         DayModel dayModel = new DayModel();
 
-        for (DayModel day:models){
-            if (day.getDate() == null){
+        for (DayModel day : models) {
+            if (day.getDate() == null) {
                 continue;
             }
             dayModel = day;
             break;
         }
         return dayModel;
+    }
+
+    /**
+     *  设置指定日期后的时间不可用
+     * @param today
+     * @param days
+     */
+    public static void setUnableAfterToday(Calendar today, List<PagerModel> days) {
+        if (days == null || today == null) {
+            return;
+        }
+        List<DayModel> models = new LinkedList<>();
+        for (PagerModel pagerModel : days) {
+            models.addAll(pagerModel.week);
+        }
+        Iterator<DayModel> iterator = models.iterator();
+        while (iterator.hasNext()) {
+            DayModel model = iterator.next();
+            if (model != null && model.getDate() != null) {
+                if (today.getTimeInMillis() < model.getDate().getTime()) {
+                    model.setEnable(false);
+                }
+            }
+        }
     }
 
 }

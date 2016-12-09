@@ -89,7 +89,11 @@ public class DayView extends LinearLayout {
             dayText.setText(getDayLabel(dayOfWeek.getDate()));
             monthText.setText(getMonthLabel(dayOfWeek.getDate()));
             this.itemStyle = itemStyle;
-            setSelected(dayOfWeek.isSelected());
+            if (dayOfWeek.isEnable()) {
+                setBackgroundColor(Color.WHITE);
+                setSelected(dayOfWeek.isSelected());
+                setEnabled(dayOfWeek.isEnable());
+            }
         } else {
             dayText.setText(null);
             dayText.setBackgroundDrawable(null);

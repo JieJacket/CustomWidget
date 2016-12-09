@@ -1,16 +1,19 @@
 package com.jekyll.commo.demo.calendar.util;
 
 
-
 import com.jekyll.wu.widget.model.DayModel;
 import com.jekyll.wu.widget.model.PagerModel;
 import com.jekyll.wu.widget.util.CalendarUtils;
 
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by jie on 2016/11/17.
@@ -83,11 +86,23 @@ public class CalendarUtilsTest {
     }
 
     @Test
-    public void calculatorMonth(){
+    public void calculatorMonth() {
         CalendarUtils utils = new CalendarUtils();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH,6);
+        calendar.set(Calendar.MONTH, 6);
         System.out.println(utils.calculatorMonth(calendar));
+    }
+
+    @Test
+    public void setDaysEnable() throws ParseException {
+        Calendar start = Calendar.getInstance();
+        DateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        Date startDate = format.parse("20161201");
+        start.setTime(startDate);
+        List<PagerModel> models = CalendarUtils.getTheAfterWeeks(start, 10);
+
+        CalendarUtils.setUnableAfterToday(Calendar.getInstance(), models);
+        System.out.println(models.toString());
     }
 
 }

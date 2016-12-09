@@ -50,9 +50,9 @@ public class DayModel implements Parcelable, Comparable<DayModel> {
         return "DayModel{" +
                 "date=" + date +
                 ", isSelected=" + isSelected +
+                ", isEnable=" + isEnable +
                 '}';
     }
-
 
     @Override
     public int compareTo(DayModel o) {
