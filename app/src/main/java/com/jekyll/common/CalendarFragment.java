@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jekyll.wu.widget.CustomCalendar;
+import com.jekyll.wu.widget.FreeSnackBar;
 import com.jekyll.wu.widget.listener.OnDateCheckedListener;
 import com.jekyll.wu.widget.model.DayModel;
 import com.jekyll.wu.widget.model.PagerModel;
@@ -56,6 +57,7 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
         return view;
     }
 
+
     private void initView(View view) {
         try {
             customCalendar = (CustomCalendar) view.findViewById(R.id.cc_test);
@@ -75,7 +77,7 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
             customCalendar.setCalendarStyle(style);
             models = new LinkedList<>();
             models = customCalendar.setCalendarRange(start, end);//设置日期的开始结束位置
-            CalendarUtils.setUnableAfterToday(Calendar.getInstance(),models);
+            CalendarUtils.setUnableAfterToday(Calendar.getInstance(), models);
             customCalendar.setPagerModels(getChildFragmentManager(), models);
             customCalendar.setCurrentWeek(models.size() - 1);//设置日期到最后一页
 
@@ -86,7 +88,17 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
 
     @Override
     public void onDateClicked(View view, DayModel day) {
-        Snackbar.make(customCalendar, String.format(Locale.getDefault(), "%s日期%s", day.isSelected() ? "选中" : "取消", day.getDate()), Snackbar.LENGTH_SHORT).show();
+//        Snackbar.make(customCalendar, String.format(Locale.getDefault(), "%s日期%s", day.isSelected() ? "选中" : "取消", day.getDate()), Snackbar.LENGTH_SHORT).show();
+        FreeSnackBar.make(customCalendar, String.format(Locale.getDefault(), "%s日期%s", day.isSelected() ? "选中" : "取消", day.getDate()), FreeSnackBar.LENGTH_LONG)
+//                    .setBackgroundColor(Color.parseColor("#123456"))
+                .setAction("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+//                    .bottom()
+                .show();
     }
 
     public List<DayModel> getSelections() {
