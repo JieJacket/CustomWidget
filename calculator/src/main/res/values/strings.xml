@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">calculator</string>
+    <string name="str_error">Error</string>
+    <string name="str_error_character">unknown character: %s</string>
+</resources>
