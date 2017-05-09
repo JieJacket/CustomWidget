@@ -1,5 +1,6 @@
 package com.jekyll.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -94,7 +95,7 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
                 .setAction("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        startActivity(new Intent(getActivity(),CalculatorActivity.class));
                     }
                 })
 //                    .bottom()

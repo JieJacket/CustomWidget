@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:orientation="horizontal">
+
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/gl_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black"
+        app:columnCount="4"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:rowCount="5">
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:clickable="true"
+            android:padding="20dp"
+            android:src="@drawable/ic_clear"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:clickable="true"
+            android:padding="18dp"
+            android:src="@drawable/ic_delete"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_per"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:clickable="true"
+            android:padding="20dp"
+            android:src="@drawable/ic_per"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_div"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:clickable="true"
+            android:padding="22dp"
+            android:src="@drawable/ic_div"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_seven"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a7"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_eight"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a8"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_nine"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a9"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_mul"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="22dp"
+            android:src="@drawable/ic_mul"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_four"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a4"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_five"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a5"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_six"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a6"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_sub"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="22dp"
+            android:src="@drawable/ic_sub"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_one"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a1"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_two"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a2"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_three"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a3"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_plus"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="18dp"
+            android:src="@drawable/ic_plus"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_zero"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/a0"
+            app:layout_columnSpan="2"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_dot"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="20dp"
+            android:src="@drawable/ic_dot"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+        <ImageView
+            android:id="@+id/iv_equal"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/item_default"
+            android:padding="18dp"
+            android:src="@drawable/ic_equal"
+            app:layout_columnWeight="1"
+            app:layout_gravity="fill" />
+
+    </android.support.v7.widget.GridLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/gl_keyboard"
+        android:background="@android:color/black"
+        android:gravity="bottom"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:minHeight="64dp"
+                android:textColor="@android:color/white"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:minHeight="48dp"
+                android:textColor="@android:color/white"
+                android:textSize="42sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+</RelativeLayout>
