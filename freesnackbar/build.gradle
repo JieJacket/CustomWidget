@@ -2,13 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
+def ext = rootProject.ext
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
 
@@ -109,8 +110,9 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"  // 上传到maven库。
-        name = "free-snackbar"  // 发布到Bintray上的项目名字，这里的名字不是compile 'com.yanzhenjie:andserver:1.0.1'中的andserver。
-        userOrg ='jiejacky' // Bintray的用户名，2016年11月更新。
+        name = "free-snackbar"
+        // 发布到Bintray上的项目名字，这里的名字不是compile 'com.yanzhenjie:andserver:1.0.1'中的andserver。
+        userOrg = 'jiejacky' // Bintray的用户名，2016年11月更新。
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]

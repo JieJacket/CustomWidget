@@ -1,12 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    def ext = rootProject.ext
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
     defaultConfig {
-        applicationId "com.jekyll.common"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 21
+        applicationId "com.jekyll.common"
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,10 +26,14 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
     //    compile project(':calendar')
     compile 'com.jekyll.wu.widget:calendar:2.0.3'
     compile project(':freesnackbar')
+    compile project(':calculator')
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:gridlayout-v7:25.3.1'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
 }
