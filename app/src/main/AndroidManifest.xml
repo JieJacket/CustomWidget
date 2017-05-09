@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalculatorActivity"/>
+        <activity android:name=".CalendarActivity"/>
+        <activity android:name=".FreeSnackBarActivity"/>
     </application>
 
 </manifest>

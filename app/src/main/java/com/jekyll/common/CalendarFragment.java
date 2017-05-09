@@ -89,17 +89,7 @@ public class CalendarFragment extends Fragment implements OnDateCheckedListener 
 
     @Override
     public void onDateClicked(View view, DayModel day) {
-//        Snackbar.make(customCalendar, String.format(Locale.getDefault(), "%s日期%s", day.isSelected() ? "选中" : "取消", day.getDate()), Snackbar.LENGTH_SHORT).show();
-        FreeSnackBar.make(customCalendar, String.format(Locale.getDefault(), "%s日期%s", day.isSelected() ? "选中" : "取消", day.getDate()), FreeSnackBar.LENGTH_LONG)
-//                    .setBackgroundColor(Color.parseColor("#123456"))
-                .setAction("取消", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getActivity(),CalculatorActivity.class));
-                    }
-                })
-//                    .bottom()
-                .show();
+        Snackbar.make(customCalendar, String.format(Locale.getDefault(), "%s日期%s", day.isSelected() ? "选中" : "取消", day.getDate()), Snackbar.LENGTH_SHORT).show();
     }
 
     public List<DayModel> getSelections() {

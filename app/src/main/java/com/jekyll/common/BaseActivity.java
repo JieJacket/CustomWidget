@@ -22,29 +22,4 @@ public class BaseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FrameLayout content = (FrameLayout) findViewById(android.R.id.content);
-        if (content != null) {
-            View top = findViewById(R.id.top_view);
-            if (top == null) {
-                top = new View(this);
-                top.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
-                content.addView(top, 0);
-            }
-            FreeSnackBar.make(top, "这是一个测试", FreeSnackBar.LENGTH_LONG)
-//                    .setBackgroundColor(Color.parseColor("#123456"))
-                    .setAction("取消", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    })
-                    .setBackgroundColor(Color.parseColor("#123456"))
-                    .bottom()
-                    .show();
-        }
-    }
 }

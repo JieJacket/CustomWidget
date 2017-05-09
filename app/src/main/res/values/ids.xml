@@ -4,4 +4,5 @@
     <item name="left_arrow" type="id" />
     <item name="right_arrow" type="id" />
     <item name="top_view" type="id" />
+    <item name="cl_dependency" type="id" />
 </resources>
